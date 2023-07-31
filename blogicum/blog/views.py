@@ -164,7 +164,6 @@ def get_queryset_vis_pub():
 class IndexListView(ListView):
     model = Post
     template_name = 'blog/index.html'
-    context_object_name = 'page_obj'
     paginate_by = PAGINATE_BY
 
     def get_queryset(self):
