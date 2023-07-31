@@ -129,14 +129,10 @@ class ProfileListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        username = self.kwargs['username']
-        profile = User.objects.get(username=username)
-        post_list = Post.objects.filter(author=profile).order_by('-pub_date')
-        paginator = Paginator(post_list, self.paginate_by)
-        page_number = self.request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
-        context["profile"] = profile
-        context["page_obj"] = page_obj
+        context["profile"] = User.objects.get(username=self.kwargs['username'])
+        context["page_obj"] = Post.objects.filter(
+            author=User.objects.get(username=self.kwargs['username'])
+            )
         return context
 
 
