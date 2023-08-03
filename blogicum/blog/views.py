@@ -43,8 +43,7 @@ class PostListView(PostMixin, ListView):
         return Post.objects.filter(
             is_published=True,
             category__is_published=True,
-            pub_date__lte=timezone.now()
-            ).order_by('-pub_date').annotate(
+            pub_date__lte=timezone.now()).order_by('-pub_date').annotate(
             comment_count=Count("comments"))
 
 
