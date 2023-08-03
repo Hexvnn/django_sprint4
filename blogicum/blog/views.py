@@ -90,9 +90,7 @@ class PostDetailView(LoginRequiredMixin, DetailView):
         post = get_object_or_404(Post, pk=self.kwargs['pk'])
         context = super().get_context_data(**kwargs)
         context['form'] = CommentForm()
-        context['comments'] = (
-            post.comments.select_related('author')
-            )
+        context['comments'] = post.comments.select_related('author')
         return context
 
 
@@ -103,8 +101,8 @@ class PostUpdateView(LoginRequiredMixin, PostMixin, UpdateView):
         if instance.author != request.user:
             return redirect(reverse(
                 'blog:post_detail',
-                kwargs={'pk': instance.pk})
-                )
+                kwargs={'pk': instance.pk}
+                ))
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):

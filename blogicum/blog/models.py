@@ -69,11 +69,8 @@ class Post(PublishedModel):
                                  null=True,
                                  verbose_name='Категория')
     image = models.ImageField('Картинка', upload_to='posts_images', null=True)
-    comment = models.ManyToManyField(
-        'Comment',
-        related_name='posts',
-        verbose_name='Комментарии',
-        )
+    comment = models.ManyToManyField('Comment', related_name='posts',
+                                     verbose_name='Комментарии')
 
     class Meta:
         verbose_name = 'публикация'
