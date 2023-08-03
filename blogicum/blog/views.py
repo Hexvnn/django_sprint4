@@ -40,12 +40,11 @@ class PostListView(PostMixin, ListView):
         return context
 
     def get_queryset(self):
-        queryset = Post.objects.filter(
+        return Post.objects.filter(
             is_published=True,
             category__is_published=True,
             pub_date__lte=timezone.now()
             ).order_by('-pub_date').annotate(comment_count=Count("comments"))
-        return queryset
 
 
 class PostCreateView(LoginRequiredMixin, PostMixin, CreateView):
@@ -101,8 +100,7 @@ class PostUpdateView(LoginRequiredMixin, PostMixin, UpdateView):
         if instance.author != request.user:
             return redirect(reverse(
                 'blog:post_detail',
-                kwargs={'pk': instance.pk}
-                ))
+                kwargs={'pk': instance.pk}))
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
@@ -194,8 +192,7 @@ class CommentUpdateView(LoginRequiredMixin, CommentMixin, UpdateView):
     def get_success_url(self):
         return reverse(
             'blog:post_detail',
-            kwargs={'pk': self.kwargs['post_id']}
-            )
+            kwargs={'pk': self.kwargs['post_id']})
 
     def dispatch(self, request, *args, **kwargs):
         comment_update = get_object_or_404(Comment, pk=kwargs['comment_id'])
