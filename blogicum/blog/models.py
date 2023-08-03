@@ -68,13 +68,11 @@ class Post(PublishedModel):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
                                  null=True,
                                  verbose_name='Категория')
-    image = models.ImageField('Картинка', upload_to='posts_images', blank=True,
-                              null=True)
+    image = models.ImageField('Картинка', upload_to='posts_images', null=True)
     comment = models.ManyToManyField(
         'Comment',
         related_name='posts',
         verbose_name='Комментарии',
-        null=False,
         )
 
     class Meta:

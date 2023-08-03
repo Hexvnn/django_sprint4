@@ -23,10 +23,12 @@ urlpatterns = [
         views.PostDeleteView.as_view(),
         name='delete_post'
         ),
-    path('profile/edit/',
-         views.ProfileUpdateView.as_view(),
-         name='edit_profile'),
-    path('profile/<username>/', views.ProfileListView.as_view(),
+    path(
+        'profile/edit/',
+        views.edit_profile,
+        name='edit_profile'
+        ),
+    path('profile/<username>/', views.profile_detail,
          name='profile'),
     path('posts/<int:post_id>/edit_comment/<int:comment_id>/',
          views.CommentUpdateView.as_view(),
