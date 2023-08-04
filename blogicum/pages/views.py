@@ -3,23 +3,20 @@ from django.shortcuts import render
 
 
 class About(TemplateView):
-    template_name = 'pages/about.html'
+    template_name = "pages/about.html"
 
 
 class Rules(TemplateView):
-    template_name = 'pages/rules.html'
+    template_name = "pages/rules.html"
 
 
-# View function 404 errors.
 def page_not_found(request, exception):
-    return render(request, 'pages/404.html', status=404)
+    return render(request, "pages/404.html", status=404)
 
 
-# View function 403 errors.
-def csrf_failure(request, reason=''):
-    return render(request, 'pages/403csrf.html', status=403)
+def csrf_failure(request, reason=""):
+    return render(request, "pages/403csrf.html", status=403)
 
 
-# View function 500 errors.
 def custom_error_view(request):
-    return render(request, 'pages/500.html', status=500)
+    return render(request, "pages/500.html", status=500)

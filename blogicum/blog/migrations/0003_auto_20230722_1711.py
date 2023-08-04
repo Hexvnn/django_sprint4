@@ -4,20 +4,28 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('blog', '0002_auto_20230720_1849'),
+        ("blog", "0002_auto_20230720_1849"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='post',
-            name='comment',
-            field=models.ManyToManyField(related_name='posts', to='blog.Comment', verbose_name='Комментарии'),
+            model_name="post",
+            name="comment",
+            field=models.ManyToManyField(
+                related_name="posts",
+                to="blog.Comment",
+                verbose_name="Комментарии",
+            ),
         ),
         migrations.AlterField(
-            model_name='post',
-            name='image',
-            field=models.ImageField(blank=True, null=True, upload_to='posts_images', verbose_name='Фото'),
+            model_name="post",
+            name="image",
+            field=models.ImageField(
+                blank=True,
+                null=True,
+                upload_to="posts_images",
+                verbose_name="Фото",
+            ),
         ),
     ]

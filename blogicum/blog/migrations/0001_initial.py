@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -15,49 +14,101 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=256, verbose_name='Название')),
-                ('description', models.TextField()),
-                ('slug', models.SlugField(unique=True)),
-                ('is_published', models.BooleanField(default=True)),
-                ('created_at', models.DateTimeField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(max_length=256, verbose_name="Название"),
+                ),
+                ("description", models.TextField()),
+                ("slug", models.SlugField(unique=True)),
+                ("is_published", models.BooleanField(default=True)),
+                ("created_at", models.DateTimeField()),
             ],
             options={
-                'verbose_name': 'категория',
-                'verbose_name_plural': 'Категории',
+                "verbose_name": "категория",
+                "verbose_name_plural": "Категории",
             },
         ),
         migrations.CreateModel(
-            name='Location',
+            name="Location",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=256)),
-                ('is_published', models.BooleanField(default=True)),
-                ('created_at', models.DateTimeField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=256)),
+                ("is_published", models.BooleanField(default=True)),
+                ("created_at", models.DateTimeField()),
             ],
             options={
-                'verbose_name': 'местоположение',
-                'verbose_name_plural': 'Местоположения',
+                "verbose_name": "местоположение",
+                "verbose_name_plural": "Местоположения",
             },
         ),
         migrations.CreateModel(
-            name='Post',
+            name="Post",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=256, verbose_name='Название')),
-                ('text', models.TextField()),
-                ('pub_date', models.DateTimeField()),
-                ('is_published', models.BooleanField(default=True)),
-                ('created_at', models.DateTimeField()),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Автор публикации')),
-                ('category', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='blog.category')),
-                ('location', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='blog.location', verbose_name='Местоположение')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(max_length=256, verbose_name="Название"),
+                ),
+                ("text", models.TextField()),
+                ("pub_date", models.DateTimeField()),
+                ("is_published", models.BooleanField(default=True)),
+                ("created_at", models.DateTimeField()),
+                (
+                    "author",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Автор публикации",
+                    ),
+                ),
+                (
+                    "category",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="blog.category",
+                    ),
+                ),
+                (
+                    "location",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="blog.location",
+                        verbose_name="Местоположение",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'публикация',
-                'verbose_name_plural': 'Публикации',
+                "verbose_name": "публикация",
+                "verbose_name_plural": "Публикации",
             },
         ),
     ]
