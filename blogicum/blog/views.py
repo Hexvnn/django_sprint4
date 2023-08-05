@@ -12,8 +12,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils import timezone
 from django.urls import reverse_lazy, reverse
-from django.db.models import Count
-from django.http import Http404, HttpResponseForbidden
+from django.db.models import Count, Q
+from django.http import HttpResponseForbidden
 
 from .forms import PostForm, CommentForm, UserForm
 from blog.models import Post, Category, Comment
@@ -84,17 +84,18 @@ class PostDeleteView(LoginRequiredMixin, PostMixin, DeleteView):
 class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
     template_name = "blog/detail.html"
-    pk_url_kwarg = "pk"
 
     def dispatch(self, request, *args, **kwargs):
-        instance = get_object_or_404(Post, pk=kwargs["pk"])
-        if instance.author != request.user and instance.is_published is False:
-            raise Http404
+        get_object_or_404(
+            Post,
+            Q(is_published=True) | Q(author=request.user.id),
+            pk=kwargs[self.pk_url_kwarg],
+        )
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        post = get_object_or_404(Post, pk=self.kwargs["pk"])
+        post = get_object_or_404(Post, pk=self.kwargs[self.pk_url_kwarg])
         context["form"] = CommentForm()
         context["comments"] = post.comments.select_related("author")
         return context

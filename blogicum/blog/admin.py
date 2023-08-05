@@ -31,5 +31,11 @@ class PostAdmin(admin.ModelAdmin):
     list_display_links = ("title",)
 
 
-admin.site.register(Location)
-admin.site.register(Comment)
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Location)
+class LocationAdmin(admin.ModelAdmin):
+    pass
